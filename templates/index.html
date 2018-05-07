@@ -1,0 +1,8 @@
+<!doctype html>
+<title>Hello</title>
+    <ul>
+    {% for datapoint in data %}
+      <li >the price was {{datapoint[1]}} on the {{ datapoint[0] }}</li>
+    {% endfor %}
+    </ul>
+  <p>{{ data }}</h1>
