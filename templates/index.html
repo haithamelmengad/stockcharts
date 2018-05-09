@@ -6,14 +6,40 @@
   <title> Stockchart </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='main.css') }}" />
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+      <div id="plot"></div>
+
+      {%if oil %}
+      <img src="./static/stockchart.png" />
+      {% endif%}
+      
+
+    
+  </body>
   <script type="text/javascript">
-  const data = '{{data.Value}}'</script>
-  <script src="{{ url_for('static', filename='main.js') }}"></script>
-</head>
-<body>
-    <img src="static/{{ output.png }}" width="120" height="90" />
-</body>
-<link href="https://unpkg.com/event-drops/dist/style.css" rel="stylesheet" />
-<script src="https://unpkg.com/d3"></script>
-<script src="https://unpkg.com/event-drops"></script>
-</html>
+
+    var dates = {{dates|safe}}
+    var prices = {{prices|safe}}
+
+    var trace = [{
+    type: "scatter",
+    mode: "lines",
+    name: 'AAPL High',
+    x: dates,
+    y: prices,
+    line: {color: '#17BECF'}
+    }]
+
+    var layout = {
+    title: 'Time Series',
+    };
+
+  Plotly.newPlot('plot', trace, layout);
+
+    </script>
+  <link href="https://unpkg.com/event-drops/dist/style.css" rel="stylesheet" />
+  <script src="https://unpkg.com/d3"></script>
+  <script src="https://unpkg.com/event-drops"></script>
+  </html>
