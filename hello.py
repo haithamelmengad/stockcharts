@@ -9,10 +9,12 @@ app = Flask(__name__)
 
 
 
-data = quandl.get("EIA/PET_RWTC_D", returns="numpy")
+data = quandl.get("EIA/PET_RWTC_D")
 # data.describe gives count, mean, etc
 
 @app.route('/')
 def render_data(data=data):
-    print(data)
+    plot = data.plot()
+    fig = plot.get_figure()
+    fig.savefig(fname="./static","stockchart.png")
     return render_template('index.html', data=data)
